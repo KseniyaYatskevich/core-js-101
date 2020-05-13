@@ -324,25 +324,9 @@ function getPositivesCount(arr) {
  *   [ 'nine','eight','nine','eight'] => [ 'eight','eight','nine','nine']
  *   [ 'one','one','one','zero' ]     => [ 'zero','one','one','one' ]
  */
-function sortDigitNamesByNumericOrder(/* arr */) {
-  // const obj = {
-  //   one: 1,
-  //   two: 2,
-  //   three: 3,
-  //   four: 4,
-  //   five: 5,
-  //   six: 6,
-  //   seven: 7,
-  //   eight: 8,
-  //   nine: 9,
-  //   ten: 10,
-  // };
-  // return arr.sort((i) => {
-  //   if (obj.arr[i] > obj.arr[i + 1]) {
-  //     return 1;
-  //   } return -1;
-  // });
-  throw new Error('Not implemented');
+function sortDigitNamesByNumericOrder(arr) {
+  const numbers = ['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine'];
+  return arr.sort((a, b) => (numbers.indexOf(a) - numbers.indexOf(b)));
 }
 
 /**
@@ -468,8 +452,14 @@ function sortCitiesArray(arr) {
  *           [0,0,0,1,0],
  *           [0,0,0,0,1]]
  */
-function getIdentityMatrix(/* n */) {
-  throw new Error('Not implemented');
+function getIdentityMatrix(n) {
+  const arrNew = new Array(n).fill(0);
+  arrNew.map((item, index) => {
+    arrNew[index] = new Array(n).fill(0);
+    arrNew[index][index] = 1;
+    return arrNew;
+  });
+  return arrNew;
 }
 
 /**
