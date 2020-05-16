@@ -126,8 +126,13 @@ function isTriangle(a, b, c) {
  *   { top:20, left:20, width: 20, height: 20 }    =>  false
  *
  */
-function doRectanglesOverlap(/* rect1, rect2 */) {
-  throw new Error('Not implemented');
+function doRectanglesOverlap(rect1, rect2) {
+  if (rect1.left > rect2.left + rect2.width
+    || rect1.left + rect1.width < rect2.left
+    || rect1.top > rect2.top + rect2.height
+    || rect2.top > rect1.top + rect1.height) {
+    return false;
+  } return true;
 }
 
 
@@ -208,8 +213,12 @@ function findFirstSingleChar(str) {
  *   5, 3, true, true   => '[3, 5]'
  *
  */
-function getIntervalString(/* a, b, isStartIncluded, isEndIncluded */) {
-  throw new Error('Not implemented');
+function getIntervalString(a, b, isStartIncluded, isEndIncluded) {
+  const minValue = Math.min(a, b);
+  const maxValue = Math.max(a, b);
+  const start = isStartIncluded ? '[' : '(';
+  const end = isEndIncluded ? ']' : ')';
+  return `${start}${minValue}, ${maxValue}${end}`;
 }
 
 
@@ -267,9 +276,23 @@ function reverseInteger(num) {
  *   5436468789016589 => false
  *   4916123456789012 => false
  */
-function isCreditCardNumber(/* ccn */) {
-  throw new Error('Not implemented');
+function isCreditCardNumber(ccn) {
+  const ccnArray = ccn.toString().split('').reverse();
+  const lengthArr = ccnArray.length;
+  let sum = 0;
+  for (let i = 1; i <= lengthArr - 1; i += 1) {
+    let digit = +ccnArray[i];
+    if (i % 2 === 1 || i === 1) {
+      digit *= 2;
+    }
+    if (digit > 9) {
+      digit -= 9;
+    }
+    sum += digit;
+  }
+  return ((sum * 9) % 10) === +ccnArray[0];
 }
+
 
 /**
  * Returns the digital root of integer:
@@ -375,8 +398,20 @@ function toNaryString(num, n) {
  *   ['/web/assets/style.css', '/.bin/mocha',  '/read.me'] => '/'
  *   ['/web/favicon.ico', '/web-scripts/dump', '/webalizer/logs'] => '/'
  */
-function getCommonDirectoryPath(/* pathes */) {
-  throw new Error('Not implemented');
+function getCommonDirectoryPath(pathes) {
+  let str = '';
+  const arr = pathes['0'].split('/');
+  let i = 0;
+  while (i < arr.length) {
+    const dir = arr[i];
+    for (let j = 0; j < pathes.length; j += 1) {
+      const arr2 = pathes[j].split('/');
+      if (arr2[i] !== dir) return str;
+    }
+    str += `${dir}/`;
+    i += 1;
+  }
+  return str;
 }
 
 
@@ -444,8 +479,26 @@ function getMatrixProduct(m1, m2) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  if (position[0][0] === 'X' && position[0][1] === 'X' && position[0][2] === 'X') return 'X';
+  if (position[1][0] === 'X' && position[1][1] === 'X' && position[1][2] === 'X') return 'X';
+  if (position[2][0] === 'X' && position[2][1] === 'X' && position[2][2] === 'X') return 'X';
+  if (position[0][0] === 'X' && position[1][0] === 'X' && position[2][0] === 'X') return 'X';
+  if (position[0][1] === 'X' && position[1][1] === 'X' && position[2][1] === 'X') return 'X';
+  if (position[0][2] === 'X' && position[1][2] === 'X' && position[2][2] === 'X') return 'X';
+  if (position[0][0] === 'X' && position[1][1] === 'X' && position[2][2] === 'X') return 'X';
+  if (position[2][0] === 'X' && position[1][1] === 'X' && position[0][2] === 'X') return 'X';
+
+  if (position[0][0] === '0' && position[0][1] === '0' && position[0][2] === '0') return '0';
+  if (position[1][0] === '0' && position[1][1] === '0' && position[1][2] === '0') return '0';
+  if (position[2][0] === '0' && position[2][1] === '0' && position[2][2] === '0') return '0';
+  if (position[0][0] === '0' && position[1][0] === '0' && position[2][0] === '0') return '0';
+  if (position[0][1] === '0' && position[1][1] === '0' && position[2][1] === '0') return '0';
+  if (position[0][2] === '0' && position[1][2] === '0' && position[2][2] === '0') return '0';
+  if (position[0][0] === '0' && position[1][1] === '0' && position[2][2] === '0') return '0';
+  if (position[2][0] === '0' && position[1][1] === '0' && position[0][2] === '0') return '0';
+
+  return undefined;
 }
 
 
